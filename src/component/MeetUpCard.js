@@ -8,10 +8,7 @@ import { ko } from 'date-fns/locale';
 
 const MeetUpCard = ({ meetUp }) => {
     const navigate = useNavigate();
-    const [today, setToday] = useState(() => {
-        const defaultDate = new Date();  // 기본값 설정 (예: 현재 시간)
-        return defaultDate;
-    });
+    const [ today, setToday ] = useState(Date.now());
 
     const goToMeetUpDetail = () => {
         navigate(`/meetUp/${meetUp._id}`);
