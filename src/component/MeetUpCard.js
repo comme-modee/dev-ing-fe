@@ -9,11 +9,13 @@ import moment from 'moment/moment';
 
 const MeetUpCard = ({ meetUp }) => {
     const navigate = useNavigate();
-    // const today = moment();
+    const today = moment();
+    const formatToday = today.format('YYYY.MM.DD');
     const [ isToday, setIsToday ] = useState(false);
 
     useEffect(()=>{
-        setIsToday(moment(meetUp.date.date, "YYYY.MM.DD").isValid())
+        console.log(formatToday)
+        // setIsToday(moment(meetUp.date.date, "YYYY.MM.DD").isValid())
     },[])
 
     const goToMeetUpDetail = () => {
@@ -34,7 +36,7 @@ const MeetUpCard = ({ meetUp }) => {
                     {meetUp.location === "online" ? (<span>온라인 </span>) : (<span>{meetUp?.location.split(' ')[1]} </span>)}
                     ·{" "}
                     {
-                        isToday ?
+                        formatToday ===  meetUp.date.date ?
                             (<span>오늘</span>)
                             :
                             (<span>
