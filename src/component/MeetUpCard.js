@@ -6,6 +6,7 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 // import { parse, format } from 'date-fns';
 // import { ko } from 'date-fns/locale';
 import moment from 'moment/moment';
+import 'moment/locale/ko';
 
 const MeetUpCard = ({ meetUp }) => {
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ const MeetUpCard = ({ meetUp }) => {
                             (<span>오늘</span>)
                             :
                             (<span>
-                                {moment(meetUp.date.date).format('M.D(ddd)', { locale: 'ko' })}{" "}
+                                {moment(meetUp.date.date).format(`M`+ `.` +`D(ddd)`, { locale: 'ko' })}{" "}
                                 {moment(meetUp.date.time, 'HH:mm:ss').format('a h:mm', { locale: 'ko' })}
                             </span>)
                     }
