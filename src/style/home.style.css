@@ -1,0 +1,257 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.home>.main-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    font-size: 50px;
+    font-family: 'NewsReader';
+    margin-top: 40px;
+}
+
+.home>.main-title>div {
+    line-height: normal;
+}
+
+.home>.main-title>.italic {
+    font-family: 'NewsReaderItalic';
+}
+
+.home>.sub-title {
+    text-align: center;
+}
+
+.home>.meet-up-container,
+.home>.post-container,
+.home>.qna-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+.home>.meet-up-container {
+    height: 330px;
+}
+
+.home>.post-container {
+    background-color: #F5F5F5;
+    height: 420px;
+    padding: 20px 0;
+}
+
+.home>.qna-container {
+    height: 400px;
+}
+
+
+
+/* 스터디모임 카드 */
+.home-meet-up-card {
+    width: 300px;
+    height: 100%;
+    background-color: #FAFAF5;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid #E6E6E6;
+    cursor: pointer;
+}
+
+.home-meet-up-card-disabled {
+    width: 300px;
+    height: 100%;
+    background-color: black;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid #E6E6E6;
+    cursor: pointer;
+}
+
+.home-meet-up-card>.img {
+    height: 200px;
+    position: relative;
+}
+
+.home-meet-up-card>.img>img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.home-meet-up-card>.img>.overlay {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    background-color: #28A745;
+    color: white;
+    padding: 5px 10px 5px 10px;
+    z-index: 2;
+}
+
+.home-meet-up-card>.img>.overlay-finish {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    background-color: #F24E1E;
+    color: white;
+    padding: 5px 10px 5px 10px;
+    z-index: 2;
+}
+
+.home-meet-up-card>.img>.category-overlay {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    background-color: white;
+    border-radius: 20px;
+    color: #333333;
+    padding: 5px 10px 5px 10px;
+    font-size: 0.8rem;
+    z-index: 2;
+}
+
+.home-meet-up-card>.contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100% - 200px);
+    padding: 20px 26px;
+}
+
+.home-meet-up-card>.contents>.title {
+    font-size: 20px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.home-meet-up-card>.contents>.schedule {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* 포스트카드 */
+.home-post-card {
+    width: 300px;
+    height: 100%;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.home-post-card:hover>.contents>.title {
+    color: #28A745;
+}
+
+.home-post-card>.img {
+    height: 45%;
+}
+
+.home-post-card>.img>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.home-post-card>.contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 55%;
+    padding: 20px 30px;
+}
+
+.home-post-card>.contents>.small-text {
+    display: flex;
+    gap: 10px;
+}
+
+.home-post-card>.contents>.title {
+    transition: all 0.2s ease;
+}
+
+.home-post-card>.contents>.title>p {
+    font-size: 26px;
+    font-weight: 500;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 36px;
+}
+
+
+/* QNA 카드 */
+.home-qna-card {
+    width: 300px;
+    height: 90%;
+    border-radius: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    padding: 10px;
+}
+
+.home-qna-card>.user>img {
+    width: 48px;
+    height: 48px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    padding: 5px;
+}
+
+.home-qna-card>.content>img {
+    width: 280px;
+    height: 170px;
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+    border-radius: 5px;
+}
+
+.home-qna-card>.content>.category {
+    color: #28A745;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+    .home>.main-title {
+        font-size: 36px;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .home>.sub-title {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .home {
+        gap: 30px;
+    }
+
+    .home>.main-title {
+        font-size: 24px;
+        gap: 6px;
+        margin-top: 10px;
+    }
+
+    .home>.sub-title {
+        font-size: 14px;
+    }
+}

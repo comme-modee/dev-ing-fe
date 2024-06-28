@@ -1,0 +1,9 @@
+.post-all-container {
+    position: relative;
+}
+
+@media screen and (max-width: 540px) {
+    .new-post-btn > span {
+        display: none;
+    }
+}
