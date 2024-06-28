@@ -7,6 +7,7 @@ import ToastMessage from "../component/ToastMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from '../action/userAction';
 import '../style/admin.style.css';
+import ChatBtn from "../component/ChatBtn";
 
 const AppLayout = ({ children }) => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const AppLayout = ({ children }) => {
 
   return (
     <div>
+      <ChatBtn/>
       <ToastMessage />
       { !location.pathname.includes("/me/") && location.pathname.includes("admin") ? (
         <div className="admin-page">

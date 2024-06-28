@@ -27,6 +27,8 @@ const ReportTable = ({ header, reportList, isMobile }) => {
         dispatch(reportActions.updateReport(id))
     }
 
+    console.log(reportList)
+
     return (
         <div className="overflow-x">
             <Table className="table-container report-table" bordered>

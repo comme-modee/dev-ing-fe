@@ -443,3 +443,7 @@
         margin: 10px 0;
     }
 }
+
+@media screen and (max-width: 540px) {
+    .profile-image { width: 100px; height: 100px; border: 7px solid transparent; }
+}

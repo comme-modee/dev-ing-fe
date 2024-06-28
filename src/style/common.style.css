@@ -398,6 +398,9 @@ body {
         border-bottom: none;
         padding: initial;
     }
+    .contents-header-btns > .search-input {
+        width: 180px;
+    }
 }
 
 @media screen and (max-width: 540px) {

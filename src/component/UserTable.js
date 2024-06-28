@@ -2,11 +2,14 @@ import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react'
 import { Table } from "react-bootstrap";
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { userActions } from '../action/userAction';
 
 const UserTable = ({ header, userList, isMobile }) => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [ isShowDetailInfo, setIsShowDetailInfo ] = useState(false);
     const [ detailInfo, setDetailInfo ] = useState([]);
 
@@ -18,6 +21,10 @@ const UserTable = ({ header, userList, isMobile }) => {
         }
         setDetailInfo(user);
         setIsShowDetailInfo(true);
+    }
+    
+    const toggleBlock = (id) => {
+        dispatch(userActions.blockUser(id))
     }
 
     return (
@@ -47,9 +54,24 @@ const UserTable = ({ header, userList, isMobile }) => {
                                     {!isMobile && <td>{user.gender}</td>}
                                     {!isMobile && <td>{user.rank}</td>}
                                     <td><span className={`${user.isDelete ? 'coral' : 'blue'}`}>{user.isDelete ? 'Yes' : 'No'}</span></td>
-                                    <td><span className={`${user.isBlock ? 'coral' : 'blue'}`}>{user.isBlock ? 'Yes' : 'No'}</span></td>
                                     {!isMobile && <td>{user.level}</td>}
                                     {!isMobile && <td>{user.report}</td>}
+                                    {/* 신고승인 토글버튼 */}
+                                    <td className='toggle-td'>
+                                        <input
+                                            className="react-switch-checkbox"
+                                            id={`admin-confirm-${user._id}`}
+                                            type="checkbox"
+                                            checked={user.isBlock}
+                                            onChange={()=> toggleBlock(user._id)}
+                                        />
+                                        <label
+                                            className="react-switch-label"
+                                            htmlFor={`admin-confirm-${user._id}`}
+                                        >
+                                        <span className={`react-switch-button`} />
+                                        </label>
+                                    </td>
                                 </tr>
                                 {isShowDetailInfo && detailInfo._id === user._id && (
                                     <React.Fragment>

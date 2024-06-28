@@ -49,7 +49,8 @@
 }
 
 .home>.qna-container {
-    height: 400px;
+    height: 340px;
+    padding: 16px 0px;
 }
 
 
@@ -196,37 +197,96 @@
 
 
 /* QNA 카드 */
-.home-qna-card {
+.home >.qna-container > .home-qna-card {
+    position: relative;
     width: 300px;
-    height: 90%;
-    border-radius: 24px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    background: #ffffff;
+    border: 1px solid #28a745;
+    box-shadow: 3px 4px 0px 0px rgba(124, 209, 144, 0.2);
+    border-radius: 20px;
+    padding: 30px 20px 20px 20px;
     cursor: pointer;
-    padding: 10px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.home >.qna-container > .home-qna-card::before {
+    content: 'Q&A';
+    position: absolute;
+    top: -24px;
+    left: -20px;
+    display: block;
+    font-size: 40px;
+    font-weight: 700;
+    color: rgba(124, 209, 144, 0.5);
+    transform: rotate(-10deg);
 }
 
-.home-qna-card>.user>img {
-    width: 48px;
-    height: 48px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    padding: 5px;
+.home >.qna-container > .home-qna-card > .content > .title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 30px;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 6px;
+}
+.home >.qna-container > .home-qna-card > .content > .content {
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+}
+.home >.qna-container > .home-qna-card > .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.home >.qna-container > .home-qna-card > .bottom > .user {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.home >.qna-container > .home-qna-card > .bottom > .info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.home >.qna-container > .home-qna-card > .bottom > .info > .category {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    width: fit-content;
+    height: fit-content;
+}
+.home >.qna-container > .home-qna-card > .bottom > .info > .tech { background-color: rgb(200, 229, 238); }
+.home >.qna-container > .home-qna-card > .bottom > .info > .career { background-color: rgb(255, 220, 214); }
+.home >.qna-container > .home-qna-card > .bottom > .info > .etc { background-color: rgb(255, 242, 199); }
+
+.home >.qna-container > .home-qna-card > .bottom > .info > .answers {
+    padding: 4px 10px;
+    background-color: rgb(230, 238, 200);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+    gap: 4px;
+}
+.home >.qna-container > .home-qna-card > .bottom > .info > .answers > span {
+    font-weight: 600;
 }
 
-.home-qna-card>.content>img {
-    width: 280px;
-    height: 170px;
-    flex: none;
-    order: 2;
-    flex-grow: 0;
-    border-radius: 5px;
-}
-
-.home-qna-card>.content>.category {
-    color: #28A745;
-    font-weight: bold;
-}
 
 @media screen and (max-width: 768px) {
     .home>.main-title {

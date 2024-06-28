@@ -2,7 +2,7 @@ import * as types from "../constants/chat.constants";
 
 const initialState = {
     loading: false,
-    error: false,
+    error: '',
     chatRoomList: [],
     selectedChatRoom: null,
 };
@@ -19,13 +19,13 @@ function chatReducer(state = initialState, action) {
 
         case types.CHATROOM_CREATE_SUCCESS:
         case types.CHAT_SAVE_SUCCESS:
-            return { ...state, loading: false };
+            return { ...state, loading: false, error: '' };
 
         case types.CHATROOM_GET_ALL_SUCCESS:
-            return { ...state, loading: false, chatRoomList: payload };
+            return { ...state, loading: false, chatRoomList: payload, error: '' };
 
         case types.CHATROOM_GET_SUCCESS:
-            return { ...state, loading: false, selectedChatRoom: payload };
+            return { ...state, loading: false, selectedChatRoom: payload, error: '' };
 
         case types.CHATROOM_CREATE_FAIL:
         case types.CHATROOM_GET_FAIL:

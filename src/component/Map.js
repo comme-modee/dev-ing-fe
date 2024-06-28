@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 
 const Map = ({ location }) => {
     useEffect(() => {
-
+        const loadKakaoMap = () => {
             const { kakao } = window;
-
+            if (kakao && kakao.maps) {
                 const container = document.getElementById('map');
                 const geocoder = new kakao.maps.services.Geocoder();
 
@@ -37,11 +37,16 @@ const Map = ({ location }) => {
                         infowindow.open(map, marker);
                     }
                 });
+            } else {
+                setTimeout(loadKakaoMap, 100); // Kakao Maps API가 로드될 때까지 100ms마다 체크
+            }
+        };
 
+        loadKakaoMap();
     }, [location]);
 
     return (
-        <div id="map" style={{ maxWidth: "1000px", height: "300px" }}></div>
+        <div id="map" style={{ width: "300px", height: "300px" }}></div>
     );
 };
 

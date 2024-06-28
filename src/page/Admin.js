@@ -14,19 +14,19 @@ const Admin = () => {
     "성별",
     "랭크",
     "삭제",
-    "차단",
     "레벨",
     "신고",
+    "활동제한",
   ] : [
     "DEV",
     "이름/이메일",
     "삭제",
-    "차단",
+    "활동제한",
   ];
 
   useEffect(() => {
     dispatch(userActions.getUserList());
-  }, [dispatch]);
+  }, []);
 
 
   useEffect(() => {
@@ -45,8 +45,7 @@ const Admin = () => {
 
   return (
     <div className="locate-center">
-      {loading ?
-        (<div className='loading'></div>) :
+      {userList &&
         <UserTable
           header={tableHeader}
           userList={userList}

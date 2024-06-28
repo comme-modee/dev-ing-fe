@@ -30,6 +30,7 @@
 
 .answer > .header > .left {
     display: flex;
+    align-items: center;
     gap: 10px;
 }
 
@@ -116,6 +117,7 @@
 
 .answer-input > .body > .img-container > .img > img {
     width: 50px;
+    margin-right: 10px;
 }
 
 .answer > .update-button {
@@ -128,4 +130,17 @@
 
 .answer > .likes {
     cursor: pointer;
+}
+
+
+@media screen and (max-width: 768px) {
+    .answer-input { padding: 0; }
+}
+
+@media screen and (max-width: 540px) {
+    .qna-detail-q-container { margin: 10px 4px; padding: 20px 14px; }
+    .qna-detail-q-container > .title { font-size: 22px; text-align: center; }
+    .detail-page-user-container > .author { padding: 10px 0; }
+    .answer { padding: 16px 6px 16px 40px; }
+    .answer > .img { left: 0px; }
 }

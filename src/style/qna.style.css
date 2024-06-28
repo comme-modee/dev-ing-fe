@@ -14,6 +14,22 @@
     justify-content: end;
 }
 
+.qna-container > .contents-header-btns {
+    position: relative;
+}
+.qna-container > .contents-header-btns::before {
+    content: 'Q&A';
+    position: absolute;
+    z-index: 999;
+    top: 24px;
+    left: -20px;
+    display: block;
+    font-size: 40px;
+    font-weight: 700;
+    color: rgba(124, 209, 144, 0.5);
+    transform: rotate(-10deg);
+}
+
 /* Q&A 카드 */
 .qna-card-container {
     box-sizing: border-box;
@@ -171,4 +187,18 @@
 
 .w-md-editor-text-input {
     flex: 1;
+}
+
+
+@media screen and (max-width: 768px) {
+    .qna-card-container > .title-content > .title { font-size: 22px; }
+}
+
+@media screen and (max-width: 540px) {
+    .qna-container > .contents-header-btns::before { content: none; }
+    .qna-card-container { height: 200px; padding: 14px 14px 20px 10px; border-radius: 14px; }
+    .qna-card-container > .title-content > .title { font-size: 18px; }
+    .qna-card-container > .title-content > .content { font-size: 14px; }
+    .qna-card-container > .author { left: 12px; bottom: 12px; }
+    .qna-card-container > .left-side > .answer-count { width: 50px; }
 }

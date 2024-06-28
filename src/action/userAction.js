@@ -74,7 +74,11 @@ const getUserList = () => async (dispatch) => {
   try {
     dispatch({ type: types.GET_USER_LIST_REQUEST })
     const res = await api.get("/user/all")
-    dispatch({ type: types.GET_USER_LIST_SUCCESS, payload: res.data.data })
+    if(res.status !== 200) {
+      throw new Error(res.error)
+    } else {
+      dispatch({ type: types.GET_USER_LIST_SUCCESS, payload: res.data.data })
+    }
 
   } catch (error) {
     dispatch({ type: types.GET_USER_LIST_FAIL, payload: error.message })
@@ -140,6 +144,23 @@ const unfollowUser = (nickName) => async (dispatch) => {
   }
 }
 
+const blockUser = (userId) => async (dispatch) => {
+    try {
+        dispatch({ type: types.BLOCK_USER_REQUEST })
+        const res = await api.post('/user/block', { userId });
+        if (res.status !== 200) {
+          throw new Error(res.error)
+        } else {
+          dispatch({ type: types.BLOCK_USER_SUCCESS })
+          dispatch(getUserList())
+          dispatch(commonUiActions.showToastMessage(res.message, 'success'))
+        }
+    } catch (error) {
+      dispatch({ type: types.BLOCK_USER_FAIL })
+      dispatch(commonUiActions.showToastMessage(error, 'error'))
+    }
+}
+
 
 
 export const userActions = {
@@ -156,4 +177,5 @@ export const userActions = {
   getUserByNickName,
   followUser,
   unfollowUser,
+  blockUser
 };

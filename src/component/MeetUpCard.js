@@ -8,6 +8,7 @@ import { ko } from 'date-fns/locale';
 
 const MeetUpCard = ({ meetUp }) => {
     const navigate = useNavigate();
+    const [ today, setToday ] = useState(new Date());
 
     const goToMeetUpDetail = () => {
         navigate(`/meetUp/${meetUp._id}`);
@@ -25,16 +26,16 @@ const MeetUpCard = ({ meetUp }) => {
                 <div className='schedule green'>
                     <FontAwesomeIcon icon={faLocationDot} style={{ color: "#28A745", }} />{" "}
                     {meetUp.location === "online" ? (<span>온라인 </span>) : (<span>{meetUp?.location.split(' ')[1]} </span>)}
-                    {/* ·{" "}
+                    ·{" "}
                     {
-                        meetUp.date.date === format(new Date(), 'yyyy.MM.dd') ?
+                        meetUp.date.date === format(today, 'yyyy.MM.dd') ?
                             (<span>오늘</span>)
                             :
                             (<span>
                                 {format(meetUp.date.date, 'M.d(EEE)', { locale: ko })}{" "}
-                                {format(parse(meetUp.date.time, 'HH:mm:ss', new Date()), 'a h:mm', { locale: ko })}
+                                {format(parse(meetUp.date.time, 'HH:mm:ss', today), 'a h:mm', { locale: ko })}
                             </span>)
-                    } */}
+                    }
                 </div>
                 <div className='small-text'>{meetUp.organizer.nickName} · 선착순 {meetUp.currentParticipants}/{meetUp.maxParticipants}</div>
             </div>
