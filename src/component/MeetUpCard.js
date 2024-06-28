@@ -3,11 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import "../style/home.style.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { parse, format } from 'date-fns';
-import { ko } from 'date-fns/locale';
+// import { parse, format } from 'date-fns';
+// import { ko } from 'date-fns/locale';
+import moment from 'moment/moment';
 
 const MeetUpCard = ({ meetUp }) => {
     const navigate = useNavigate();
+    // const today = moment();
+    const [ isToday, setIsToday ] = useState(false);
+
+    useEffect(()=>{
+        setIsToday(moment(meetUp.date.date, "YYYY.MM.DD").isValid())
+    },[])
 
     const goToMeetUpDetail = () => {
         navigate(`/meetUp/${meetUp._id}`);
@@ -27,14 +34,13 @@ const MeetUpCard = ({ meetUp }) => {
                     {meetUp.location === "online" ? (<span>온라인 </span>) : (<span>{meetUp?.location.split(' ')[1]} </span>)}
                     ·{" "}
                     {
-                        format(new Date(meetUp?.date?.date), 'yyyy.MM.dd') === format(new Date(), 'yyyy.MM.dd') ?
-                        (<span>오늘</span>)
-                        :
-                        (<span>
-                            {format(new Date(meetUp?.date?.date), 'M.d(EEE)', { locale: ko })}{" "}
-                            {format(parse(meetUp?.date?.time, 'HH:mm:ss', new Date(meetUp?.date?.date)), 'a h:mm', { locale: ko })}
-                        </span>)
-                    
+                        isToday ?
+                            (<span>오늘</span>)
+                            :
+                            (<span>
+                                {moment(meetUp.date.date).format('M.D(ddd)', { locale: 'ko' })}{" "}
+                                {moment(meetUp.date.time, 'HH:mm:ss').format('a h:mm', { locale: 'ko' })}
+                            </span>)
                     }
                 </div>
                 <div className='small-text'>{meetUp.organizer.nickName} · 선착순 {meetUp.currentParticipants}/{meetUp.maxParticipants}</div>
