@@ -41,7 +41,7 @@ const MeetUpCard = ({ meetUp }) => {
                             (<span>오늘</span>)
                             :
                             (<span>
-                                {moment(meetUp.date.date).format(`M/D(ddd)`, { locale: 'ko' })}{" "}
+                                {moment(meetUp.date.date, 'YYYY.MM.DD').format(`MM.DD(ddd)`, { locale: 'ko' })}{" "}
                                 {moment(meetUp.date.time, 'HH:mm:ss').format('a h:mm', { locale: 'ko' })}
                             </span>)
                     }
