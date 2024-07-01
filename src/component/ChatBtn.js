@@ -81,6 +81,10 @@ const ChatBtn = () => {
         setRoomId(roomId)
     }
 
+    useEffect(()=>{
+        console.log('소켓', socket)
+    },[socket])
+
     useEffect(() => {
 
         // 특정 방에 입장
