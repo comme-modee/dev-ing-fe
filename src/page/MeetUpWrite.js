@@ -280,10 +280,10 @@ const MeetUpWrite = () => {
                       required
                     >
                       <option value='' disabled hidden>카테고리 선택</option>
-                      <option value='독서'>독서</option>
-                      <option value='강의'>강의</option>
+                      <option value='스터디'>스터디</option>
                       <option value='프로젝트'>프로젝트</option>
-                      <option value='기타 스터디'>기타 스터디</option>
+                      <option value='강의'>강의</option>
+                      <option value='독서'>독서</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="mb-3">
@@ -441,7 +441,7 @@ const MeetUpWrite = () => {
                       type="text"
                       rows={3}
                       placeholder="모임 내용을 입력해주세요
-            ex)1주일 1번 노드JS 스터디 함께 해요!"
+                                   ex)1주일 1번 노드JS 스터디 함께 해요!"
                       onChange={(event) => handleChange(event)}
                       required
                       disabled={true}
@@ -454,7 +454,7 @@ const MeetUpWrite = () => {
                       {" "}<CloudinaryUploadWidget uploadImage={uploadedimage} errorController={errorController} />
                     </div>
                   </Form.Group>
-                  <Form.Group className="mb-3">
+                  <Form.Group className="mb-3"> 
                     <Form.Label className="form-label">카테고리<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Select
                       id="category"
@@ -465,10 +465,10 @@ const MeetUpWrite = () => {
                       multiple={false}
                     >
                       <option value='' disabled hidden>카테고리 선택</option>
-                      <option value='독서'>독서</option>
-                      <option value='강의'>강의</option>
+                      <option value='스터디'>스터디</option>
                       <option value="프로젝트">프로젝트</option>
-                      <option value='기타 스터디'>기타 스터디</option>
+                      <option value='강의'>강의</option>
+                      <option value='독서'>독서</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="mb-3">

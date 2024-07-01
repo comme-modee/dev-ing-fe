@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { postActions } from '../action/postAction';
 import meetingImg from "../asset/img/meeting-img-03.jpg"
 import { useNavigate } from 'react-router-dom';
 import { Col, Row, Card, Badge } from 'react-bootstrap';
@@ -8,29 +6,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 
-const MyLikesTab = ({uniqueUser}) => {
-    const dispatch = useDispatch();
+const MyLikesTab = ({uniqueUserLikes}) => {
     const navigate = useNavigate();
-    const { postList } = useSelector((state) => state.post);
     const [likedPosts, setLikedPosts] = useState([]);
-    
 
     useEffect(() => {
-        dispatch(postActions.getPostList())
-    }, [])
-
-    useEffect(() => {
-    if (postList) {
-      const filteredPosts = postList.filter((post) => 
-        post.userLikes && post.userLikes.includes(uniqueUser._id)
-      );
-      setLikedPosts(filteredPosts);
+    if (uniqueUserLikes) {
+      setLikedPosts(uniqueUserLikes);
     }
-  }, [postList, uniqueUser]);
+  }, [uniqueUserLikes]);
 
   return (
       <Row>
-      {likedPosts.map((post) => (
+      {likedPosts.length !== 0 ? likedPosts.map((post) => (
         <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
                 <Card className="mypagetab-card shadow-sm" onClick={() => { navigate(`/post/${post._id}`) }}>
                 <Card.Img variant="top" src={post.image || meetingImg} alt={post.title} className="card-thumbnail" />
@@ -55,7 +43,7 @@ const MyLikesTab = ({uniqueUser}) => {
                 </Card.Footer>
             </Card>
           </Col>
-      ))}
+      )) : "아직 좋아요한 포스트가 없습니다."}
     </Row>
   )
 }

@@ -7,6 +7,7 @@ import ToastMessage from "../component/ToastMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from '../action/userAction';
 import '../style/admin.style.css';
+import ChatBtn from "../component/ChatBtn";
 
 const AppLayout = ({ children }) => {
   const location = useLocation();
@@ -32,6 +33,7 @@ const AppLayout = ({ children }) => {
         </div>
       ) : (
         <>
+          {user && <ChatBtn/>}
           <Navbar user={user} />
           <CustomContainer children={children}></CustomContainer>
         </>

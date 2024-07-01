@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import "../../style/home.style.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { format } from 'date-fns';
+import { parse, format, isToday } from 'date-fns';
+import { ko } from 'date-fns/locale';
 
 const HomeMeetUpCard = ({ meetUp }) => {
     const navigate = useNavigate();
+    const parsedMeetUpDate = parse(meetUp?.date.date.replace(/\./g, '/'), 'yyyy/MM/dd', new Date());
 
     const goToMeetUpDetail = () => {
         navigate(`/meetUp/${meetUp._id}`);
@@ -25,12 +27,20 @@ const HomeMeetUpCard = ({ meetUp }) => {
                     <FontAwesomeIcon icon={faLocationDot} style={{ color: "#28A745", }} />
 
                     {meetUp.location === "online" ? 
-                        (<span> 온라인 · </span>) : 
-                        (<span> {meetUp?.location.split(' ')[1]} · </span>)}
+                        (<span> 온라인</span>) :
+                        (<span> {meetUp?.location.split(' ')[1]}</span>)}
 
-                    {meetUp.date.date === format(new Date(), 'yyyy.MM.dd') ? 
-                        (<span> 오늘</span>) : 
-                        (<span>{meetUp.date.date}</span>)}
+                    {
+                        isToday(parsedMeetUpDate) ?
+                            (<span>{"· "}오늘</span>)
+                            :
+                            (<span>
+                                {"· "}
+                                {format(parsedMeetUpDate, 'M.d(EEE)', { locale: ko })}{" "}
+                                {format(parse(meetUp.date.time, 'HH:mm:ss', new Date()), 'a h:mm', { locale: ko })}
+                            </span>)
+
+                    }
                         
                 </div>
                 <div className='small-text'>{meetUp.organizer.nickName} · 선착순 {meetUp.currentParticipants}/{meetUp.maxParticipants}</div>

@@ -24,14 +24,10 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    padding: 20px;
-    margin: 10px;
     justify-content: center;
 }
 
 .meetup-detail-container>.title {
-    color: #28A745;
-    font-size: 1.8rem;
     font-size: 30px;
     font-weight: 500;
     padding: 20px 0;
@@ -103,4 +99,36 @@
 
 .meetup-btn-container>button {
     width: 200px;
+}
+.meetup-member {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    cursor: pointer;
+}
+.meetup-member:hover {
+    background-color: aliceblue;
+}
+.meetup-detail-container .accordion-button {
+    padding: 14px;
+}
+.meetup-detail-container .accordion-body {
+    padding: 0px;
+}
+@media screen and (max-width: 768px) {
+    .meetup-detail-container>.title { font-size: 26px; text-align: center; }
+    .meetup-detail-container>.content,
+    .meetup-info,
+    .meetup-info-title { font-size: 18px; }
+    .detail-page-user-container>.author { padding: 10px 0; }
+}
+@media screen and (max-width: 540px) {
+    .meetup-detail-container>.title { font-size: 22px; padding: 10px 0; }
+    .meetup-detail-container>.content,
+    .meetup-info,
+    .meetup-info-title { font-size: 16px; }
+    .meetup-detail-container .accordion-button {
+        padding: 10px;
+    }
+    .meetup-detail-container .accordion-body .meetup-member>img { width: 30px; height: 30px; }
 }

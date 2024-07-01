@@ -29,7 +29,7 @@ const AnswerInput = () => {
             {user ? (
                 <div className="answer-input no-drag">
                     <div className="header">
-                        <div className="img">
+                        <div className="small-profile-img">
                             <img src={user.profileImage} alt="" />
                         </div>
                         <div>{user.nickName}</div>

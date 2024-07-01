@@ -7,6 +7,8 @@ import { qnaActions } from "../action/qnaAction";
 import { Dropdown } from "react-bootstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ErrorCard from "../component/ErrorCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Qna = () => {
     const dispatch = useDispatch();
@@ -53,21 +55,30 @@ const Qna = () => {
         updateQueryParams();
       };
 
+      const searchKeywordBySearchIcon = () => {
+        setSearchQuery(prevState => ({
+          ...prevState,
+          keyword: keywordValue || ''
+        }));
+        updateQueryParams();
+      }
+
     return (
         <div>
             <div className="qna-container">
                 <div className='contents-header-btns'>
-                    <input 
-                    type='text' 
-                    placeholder='검색어를 입력하세요' 
-                    className='form-control search-input'
-                    value={keywordValue}
-                    onKeyUp={(e) => onCheckEnter(e)}
-                    onChange={(e) => setKeywordValue(e.target.value)}
-                    />
-                    
+                    <div className='form-control search-input'>
+                      <input 
+                        type='text' 
+                        placeholder='검색어를 입력하세요' 
+                        value={keywordValue}
+                        onKeyUp={(e) => onCheckEnter(e)}
+                        onChange={(e) => setKeywordValue(e.target.value)}
+                      />
+                      <FontAwesomeIcon icon={faSearch} onClick={() => searchKeywordBySearchIcon()}/>
+                    </div>
                     <Dropdown>
-                        <Dropdown.Toggle>
+                        <Dropdown.Toggle className='gradient-btn-pink'>
                             카테고리
                         </Dropdown.Toggle>
 

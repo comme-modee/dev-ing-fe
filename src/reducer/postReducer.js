@@ -21,6 +21,8 @@ function postReducer(state = initialState, action) {
     case types.ADD_SCRAP_REQUEST:
     case types.BLOCK_POST_REQUEST:
     case types.GET_ADMIN_POST_LIST_REQUEST:
+    case types.TOGGLE_SCRAP_PRIVATE_REQUEST:
+    case types.DELETE_SCRAP_REQUEST:
         return {...state, loading: true}
 
     case types.CREATE_POST_COMMENT_REQUEST:
@@ -34,6 +36,8 @@ function postReducer(state = initialState, action) {
     case types.ADD_LIKE_ON_POST_SUCCESS:
     case types.ADD_SCRAP_SUCCESS:
     case types.BLOCK_POST_SUCCESS:
+    case types.TOGGLE_SCRAP_PRIVATE_SUCCESS:
+    case types.DELETE_SCRAP_SUCCESS:
       return {...state, loading: false, error: ''}
 
     case types.CREATE_POST_COMMENT_SUCCESS:
@@ -59,6 +63,8 @@ function postReducer(state = initialState, action) {
     case types.ADD_SCRAP_FAIL:
     case types.BLOCK_POST_FAIL:
     case types.GET_ADMIN_POST_LIST_FAIL:
+    case types.TOGGLE_SCRAP_PRIVATE_FAIL:
+    case types.DELETE_SCRAP_FAIL:
         return {...state, loading: false, error:payload}
 
     case types.CREATE_POST_COMMENT_FAIL:

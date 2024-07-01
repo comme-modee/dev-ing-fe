@@ -240,10 +240,11 @@ const PostDetail = () => {
                             <FontAwesomeIcon icon={selectedPost?.userLikes.some(like => like._id === user._id) ? fullHeart : emptyHeart} className='coral'/> 좋아요 
                             <span className='coral'>{selectedPost?.likes}</span>
                         </div>
+                        
                         <Dropdown>
                             <Dropdown.Toggle variant='none'>
                             </Dropdown.Toggle>
-                            <Dropdown.Menu>
+                            {selectedPost?.likes !== 0 && <Dropdown.Menu>
                                 {selectedPost?.userLikes.map((user) => 
                                     <Dropdown.Item key={user._id} onClick={() => navigate(`/me/${user.nickName}`)}>
                                         <div className='small-profile-img'>
@@ -251,7 +252,7 @@ const PostDetail = () => {
                                         </div>{user.nickName}
                                     </Dropdown.Item>
                                 )}
-                            </Dropdown.Menu>
+                            </Dropdown.Menu>}
                         </Dropdown>
                     </div>
 

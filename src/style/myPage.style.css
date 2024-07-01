@@ -9,53 +9,34 @@
     margin-bottom: 20px;
 }
 
-.profile-image {
+.profile-images {
+    position: relative;
     width: 150px;
     height: 150px;
+}
+
+.profile-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 85%;
+    height: 85%;
     border-radius: 50%;
-    border: 10px solid transparent;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
-.profile-image.entry {
-    border-color: #6a6a6a;
-}
-
-.profile-image.bronze {
-    border-color: #775135;
-}
-
-.profile-image.silver {
-    border-color: #8a878a;
-}
-
-.profile-image.gold {
-    border-color: #bd9b51;
-}
-
-.profile-image.platinum {
-    border-color: #43a26e;
-}
-
-.profile-image.diamond {
-    border-color: #b9f2ff;
-}
-
-.profile-image.master {
-    border-color: #ff00ff;
-    position: relative;
-}
-
-.profile-image.master:hover {
-    box-shadow: 0 0 20px #ff00ff;
-}
-
-.profile-image.challenger {
-    border-color: #ff4500;
-    position: relative;
-}
-
-.profile-image.challenger:hover {
-    box-shadow: 0 0 20px #ff4500;
+.profile-rank {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: 2;
 }
 
 .profile-info {
@@ -129,6 +110,11 @@
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.my-activity {
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .description {
@@ -442,4 +428,27 @@
         max-width: 100%;
         margin: 10px 0;
     }
+}
+
+.scrap-card {
+    position: relative;
+}
+.scrap-card > .state-btns {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 4px;
+    position: absolute;
+    z-index: 1;
+    top: 6px;
+    right: 6px;
+}
+
+.scrap-card > .state-btns > .private {
+    background-color: #e2e2e2;
+    border: 1px solid #8a8a8a !important;
+    color: #555555 !important;
+}
+.scrap-card > .state-btns > .private:hover {
+    background-color: #c5c5c5;
 }

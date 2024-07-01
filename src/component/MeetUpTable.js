@@ -87,7 +87,7 @@ const MeetUpTable = ({ header, meetUpList, isMobile }) => {
                                         <tr className='detail-info-tr'>
                                             {!isMobile && <td className='blank-td'></td>}
                                             <td className='f-bold hide-tab-header'>장소</td>
-                                            <td colSpan="12">{detailInfo?.location.replace(';', ' ')}</td>
+                                            <td colSpan="12">{detailInfo?.location === "online" ? "온라인" : detailInfo?.location.replace(/;/g, ' ')}</td>
                                         </tr>
                                         <tr className='detail-info-tr'>
                                             {!isMobile && <td className='blank-td'></td>}

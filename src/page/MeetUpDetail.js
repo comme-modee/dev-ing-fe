@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { commonUiActions } from '../action/commonUiAction';
 import { reportActions } from '../action/reportAction';
+import WriteBtn from '../component/WriteBtn';
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -186,7 +187,9 @@ const MeetUpDetail = () => {
       </Modal>
 
       <div>
-
+        <div className='contents-header-btns'>
+                <WriteBtn type='meetup'/>
+        </div>
         <div className='meetup-detail-container'>
           <div className='title'>{selectedMeetUp?.title}</div>
 
@@ -233,8 +236,9 @@ const MeetUpDetail = () => {
           <div className='meetup-info'>
             <div><span className='meetup-info-title'>카테고리 : </span>{selectedMeetUp?.category}</div>
             <Row>
-              <Col md={2}>
-                <span className='meetup-info-title'>모집 인원 : </span>{selectedMeetUp?.currentParticipants}/{selectedMeetUp?.maxParticipants}</Col>
+              <Col md={3}>
+                <span className='meetup-info-title'>모집 인원 : </span>{selectedMeetUp?.currentParticipants}/{selectedMeetUp?.maxParticipants}
+              </Col>
               <Col md={3}>
                 <Accordion>
                   <Accordion.Item eventKey="0">

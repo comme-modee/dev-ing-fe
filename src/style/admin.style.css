@@ -92,12 +92,19 @@
     overflow: auto;
 }
 .locate-center table .detail-info-tr .tag {
-    padding: 4px 6px;
+    display: inline-block;
+    padding: 4px 10px;
     background-color: #fff;
     border: 1px solid rgba(0, 121, 158, 0.5);
     border-radius: 5px;
     color: #00799e;
     margin: 2px;
+}
+.toggle-td > input {
+    display: block;
+}
+.toggle-td > label {
+    margin: 0 auto;
 }
 
 @media screen and (max-width: 980px) {
@@ -120,5 +127,8 @@
     }
     .table-cell .user-info > .small-text {
         font-size: 14px;
+    }
+    .locate-center table .detail-info-tr .tag {
+        padding: 2px 8px;
     }
 }

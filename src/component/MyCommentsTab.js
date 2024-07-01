@@ -1,53 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import meetingImg from "../asset/img/meeting-img-01.jpg"
-import { postActions } from '../action/postAction';
-import { qnaActions } from "../action/qnaAction";
 import { Dropdown } from 'react-bootstrap';
 
-const MyCommentsTab = ({ uniqueUser }) => {
-    const dispatch = useDispatch();
+const MyCommentsTab = ({ uniqueUser, uniqueUserPostComments, uniqueUserQnaComments }) => {
     const navigate = useNavigate();
-    const { postList } = useSelector((state) => state.post)
-    const { qnaList } = useSelector((state) => state.qna);
     const [myPostComments, setMyPostComments] = useState([]);
     const [myQnaComments, setMyQnaComments] = useState([]);
     const [selectedTab, setSelectedTab] = useState("all")
     const [dropdownText, setDropdownText] = useState("전체 댓글")
 
-    useEffect(() => {
-        dispatch(postActions.getPostList());
-        dispatch(qnaActions.getQnaList());
-    }, [])
+    const formatDateTime = (dateString) => {
+        return dateString.replace("T", " ").replace(/\.\d+Z$/, "");
+    };
 
     useEffect(() => {
-        if (postList) {
-            const commentWithPosts = postList
-                .filter((post) => 
-                post.comments && post.comments.some((comment) => !comment.isDelete && comment.author === uniqueUser._id)
-                )
-                .map((post) => ({
-                    ...post,
-                    userComments: post.comments.filter((comment) => !comment.isDelete && comment.author === uniqueUser._id),
-                }))
-            setMyPostComments(commentWithPosts)
+        if (uniqueUserPostComments) {
+            setMyPostComments(uniqueUserPostComments)
         }
-    }, [postList, uniqueUser])
+    }, [uniqueUserPostComments, uniqueUser])
 
     useEffect(() => {
-        if (qnaList) {
-            const commentWithQnas = qnaList
-                .filter((qna) => 
-                qna.answers && qna.answers.some((answer) =>!answer.isDelete && answer.author._id === uniqueUser._id)
-            )
-                .map((qna) => ({
-                    ...qna,
-                    userComments: qna.answers.filter((answer) =>!answer.isDelete && answer.author._id === uniqueUser._id),
-                }))
-            setMyQnaComments(commentWithQnas)
+        if (uniqueUserQnaComments) {
+            setMyQnaComments(uniqueUserQnaComments)
         }
-    }, [qnaList, uniqueUser])
+    }, [uniqueUserQnaComments, uniqueUser])
 
     const handleSelect = (tab, text) => {
         setSelectedTab(tab);
@@ -79,7 +57,7 @@ const MyCommentsTab = ({ uniqueUser }) => {
               <div className="post-details">
                 <span>Tags: {post.tags.join(", ")}</span>
                 <span>Likes: {post.userLikes.length}</span>
-                <span>Posted on: {post.createAt.date} at {post.createAt.time}</span>
+                <span>Posted on: {formatDateTime(post.createAt)}</span>
               </div>
             </div>
           </div>
@@ -92,7 +70,7 @@ const MyCommentsTab = ({ uniqueUser }) => {
                 </div>
                 <div className="comment-content">
                   <p>{comment.content}</p>
-                  <span className="comment-date">{comment.createAt.date} at {comment.createAt.time}</span>
+                  <span className="comment-date">{formatDateTime(comment.createAt)}</span>
                 </div>
               </div>
             ))}
@@ -106,8 +84,8 @@ const MyCommentsTab = ({ uniqueUser }) => {
               <h3>Q. {qna.title}</h3>
               <div className="post-details">
                 <span>{qna.answers.filter(comment => !comment.isDelete).length} 개의 답변</span>
-                <span>Tags: {qna.tags.join(", ")}</span>
-                <span>게시일: {qna.createAt.date} at {qna.createAt.time}</span>
+                <span>Tags: {qna.tags.length === 0 ? "없음" : qna.tags.join(", ")}</span>
+                <span>게시일: {formatDateTime(qna.createAt)}</span>
               </div>
             </div>
           </div>
@@ -120,7 +98,7 @@ const MyCommentsTab = ({ uniqueUser }) => {
                 </div>
                 <div className="comment-content">
                   <p>{answer.content}</p>
-                  <span className="comment-date">{answer.createAt.date} at {answer.createAt.time}</span>
+                  <span className="comment-date">{formatDateTime(answer.createAt)}</span>
                 </div>
               </div>
             ))}

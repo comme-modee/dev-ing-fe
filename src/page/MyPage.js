@@ -11,12 +11,20 @@ import QnaTab from '../component/QnaTab';
 import ScrapTab from '../component/ScrapTab';
 import MyLikesTab from '../component/MyLikesTab';
 import MyCommentsTab from '../component/MyCommentsTab';
+import  entry  from "../asset/img/entry.png"
+import  bronze  from "../asset/img/bronze.png"
+import  silver  from "../asset/img/silver.png"
+import  gold  from "../asset/img/gold.png"
+import  platinum  from "../asset/img/platinum.png"
+import  diamond  from "../asset/img/diamond.png"
+import  master  from "../asset/img/master.png"
+import  challenger  from "../asset/img/challenger.png"
 
 const MyPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { nickName } = useParams();
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState("post");
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
 
@@ -29,6 +37,10 @@ const MyPage = () => {
     uniqueUserPost,
     uniqueUserMeetUp,
     uniqueUserQna,
+    uniqueUserScrap,
+    uniqueUserLikes,
+    uniqueUserPostComments,
+    uniqueUserQnaComments,
     following,
     followers } = useSelector((state) => state.user);
   const isCurrentUser = user && user.nickName === nickName;
@@ -49,7 +61,7 @@ const MyPage = () => {
 
   useEffect(() => {
     dispatch(userActions.getUserByNickName(nickName))
-    setTab(0);
+    setTab("post");
   }, [nickName, dispatch])
 
   useEffect(() => {
@@ -78,35 +90,50 @@ const MyPage = () => {
 
   const handleCloseModal = () => setShowModal(false);
 
+  const getTotalCommentsLength = (comments) => {
+    if (!comments || comments.length === 0) {
+        return 0;
+    }
+    return comments.reduce((totalLength, comment) => {
+        return totalLength + (comment.userComments ? comment.userComments.length : 0);
+    }, 0);
+  };
+
+  const getTotalAnswersLength = (answers) => {
+    if (!answers || answers.length === 0) {
+        return 0;
+    }
+    return answers.reduce((totalLength, answer) => {
+        // comment.answers 배열이 존재하고 길이가 있는 경우에만 합산
+        return totalLength + (answer.userComments ? answer.userComments.length : 0);
+    }, 0);
+  };
+
   const getProfileImageRank = (rank) => {
     switch (rank.toLowerCase()) {
       case "entry":
-        return "entry";
+        return entry;
       case "bronze":
-        return "bronze";
+        return bronze;
       case "silver":
-        return "silver";
+        return silver
       case "gold":
-        return "gold";
+        return gold;
       case "platinum":
-        return "platinum";
+        return platinum;
       case "diamond":
-        return "diamond";
+        return diamond;
       case "master":
-        return "master";
+        return master
       case "challenger":
-        return "challenger";
+        return challenger;
       default:
-        return "entry";
+        return entry;
     }
   }
 
-  if (loading) {
-    return <div className='loading'><ClipLoader color="#28A745" loading={loading} size={100} /></div>
-  }
-
   if (!uniqueUser) {
-    return <div>User not found</div>;
+    return <div></div>;
   }
 
   const isFollowing = user && user.following && user.following.includes(uniqueUser._id)
@@ -114,11 +141,18 @@ const MyPage = () => {
   return (
     <div className="my-page-container">
       <div className="profile-section">
-        <img
-          src={uniqueUser.profileImage}
-          alt="Profile"
-          className={`profile-image ${getProfileImageRank(uniqueUser.rank)}`}
-        />
+        <div className="profile-images">
+          <img
+            src={uniqueUser.profileImage}
+            alt="Profile"
+            className="profile-image"
+          />
+          <img
+            src={`${getProfileImageRank(uniqueUser.rank)}`}
+            className="profile-rank"
+            alt="Rank"
+          />
+        </div>
         <div className="profile-info">
           <div className="user-info">
             <h2 className="user-name">
@@ -145,13 +179,15 @@ const MyPage = () => {
             </div>
           </div>
           <div className="follow-info">
-            <div className="follow-item">
+            <div className="follow-item" onClick={() => handleShowModal("myActivity")}>
               <p className="follow-label">나의 활동</p>
               <p className="follow-count">
                 {uniqueUserPost.length
                   + uniqueUserMeetUp.length
                   + uniqueUserQna.length
-                  + uniqueUser.scrap.length}
+                  + uniqueUserScrap.length
+                  + uniqueUserLikes.length
+                  + getTotalCommentsLength(uniqueUserPostComments) + getTotalAnswersLength(uniqueUserQnaComments)}
               </p>
             </div>
             <div className="follow-item" onClick={() => handleShowModal("followers")}>
@@ -167,24 +203,24 @@ const MyPage = () => {
         <p className="description">{uniqueUser.description}</p>
       </div>
 
-      <Nav variant="tabs" defaultActiveKey="post" className="custom-nav">
+      <Nav variant="tabs" activeKey={tab} onSelect={(selectedKey) => setTab(selectedKey)} defaultActiveKey="post" className="custom-nav">
         <Nav.Item>
-          <Nav.Link onClick={() => setTab(0)} eventKey="post">Post</Nav.Link>
+          <Nav.Link eventKey="post">Post</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={() => setTab(1)} eventKey="meetUp">MeetUp</Nav.Link>
+          <Nav.Link eventKey="meetUp">MeetUp</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={() => setTab(2)} eventKey="qna">Q&A</Nav.Link>
+          <Nav.Link eventKey="qna">Q&A</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={() => setTab(3)} eventKey="scrap">Scrap</Nav.Link>
+          <Nav.Link eventKey="scrap">Scrap</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={() => setTab(4)} eventKey="myLikes">My Likes</Nav.Link>
+          <Nav.Link eventKey="myLikes">My Likes</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={() => setTab(5)} eventKey="myComments">My Comments</Nav.Link>
+          <Nav.Link eventKey="myComments">My Comments</Nav.Link>
         </Nav.Item>
       </Nav>
 
@@ -194,12 +230,16 @@ const MyPage = () => {
         uniqueUserPost={uniqueUserPost}
         uniqueUserMeetUp={uniqueUserMeetUp}
         uniqueUserQna={uniqueUserQna}
+        uniqueUserScrap={uniqueUserScrap}
+        uniqueUserLikes={uniqueUserLikes}
+        uniqueUserPostComments={uniqueUserPostComments}
+        uniqueUserQnaComments={uniqueUserQnaComments}
       />
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {modalType === 'following' ? 'Following' : 'Followers'}
+            {modalType === 'following' ? 'Following' : modalType === 'followers' ? 'Followers' : "나의 활동"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -220,7 +260,7 @@ const MyPage = () => {
                 </div>
               </div>
             ))
-          ) : (
+          ) : modalType === "followers" ? (
             followers.map((user) => (
               <div
                 key={user._id}
@@ -237,47 +277,67 @@ const MyPage = () => {
                 </div>
               </div>
             ))
-          )}
+            ) : <div className="my-activity">
+                <p className='mb-1'>포스트: {uniqueUserPost.length}</p>
+                <p className='mb-1'>MeetUp: {uniqueUserMeetUp.length}</p>
+                <p className='mb-1'>Qna: {uniqueUserQna.length}</p>
+                <p className='mb-1'>스크랩: {uniqueUserScrap.length}</p>
+                <p className='mb-1'>나의 좋아요: {uniqueUserLikes.length}</p>
+                <p className='mb-1'>나의 댓글: {getTotalCommentsLength(uniqueUserPostComments) + getTotalAnswersLength(uniqueUserQnaComments)}</p>
+          </div>}
         </Modal.Body>
       </Modal>
     </div>
   )
 }
 
-const TabContent = ({ tab, uniqueUser, uniqueUserPost, uniqueUserMeetUp, uniqueUserQna }) => {
-  if (tab === 0) {
+const TabContent = ({
+  tab,
+  uniqueUser,
+  uniqueUserPost,
+  uniqueUserMeetUp,
+  uniqueUserQna,
+  uniqueUserScrap,
+  uniqueUserLikes,
+  uniqueUserPostComments,
+  uniqueUserQnaComments, }) => {
+  if (tab === "post") {
     return <Row>
-      {uniqueUserPost && uniqueUserPost.map((post) => (
+      {uniqueUserPost.length !== 0 ? uniqueUserPost.map((post) => (
         <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
           <PostTab post={post} key={post._id} />
         </Col>
-      ))}
+      )) : "아직 포스트를 게시하지 않았습니다"}
     </Row>
   }
 
-  if (tab === 1) {
+  if (tab === "meetUp") {
     return <div className="meetUp-container">
-      {uniqueUserMeetUp && uniqueUserMeetUp.map((meetUp) => (
+      {uniqueUserMeetUp.length !== 0 ? uniqueUserMeetUp.map((meetUp) => (
         <MeetUpTab meetUp={meetUp} key={meetUp._id} />
-      ))}
+      )) : "아직 MeetUp을 만들지 않았습니다"}
     </div>
   }
 
-  if (tab === 2) {
+  if (tab === "qna") {
     return <>
-      {uniqueUserQna && uniqueUserQna.map((qna) => (
+      {uniqueUserQna.length !== 0 ? uniqueUserQna.map((qna) => (
         <QnaTab qna={qna} key={qna._id} />
-      ))}
+      )) : "아직 Qna를 게시하지 않았습니다"}
     </>
   }
-  if (tab === 3) {
-    return <ScrapTab uniqueUser={uniqueUser} />
+  if (tab === "scrap") {
+    return <ScrapTab uniqueUser={uniqueUser} uniqueUserScrap={uniqueUserScrap} />
   }
-  if (tab === 4) {
-    return <MyLikesTab uniqueUser={uniqueUser} />
+  if (tab === "myLikes") {
+    return <MyLikesTab uniqueUserLikes={uniqueUserLikes} />
   }
-  if (tab === 5) {
-    return <MyCommentsTab uniqueUser={uniqueUser} />
+  if (tab === "myComments") {
+    return <MyCommentsTab
+      uniqueUser={uniqueUser}
+      uniqueUserPostComments={uniqueUserPostComments}
+      uniqueUserQnaComments={uniqueUserQnaComments}
+    />
   }
 
 }

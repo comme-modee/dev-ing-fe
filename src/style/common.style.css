@@ -276,6 +276,14 @@ body {
     width: initial;
     height: 38px;
 }
+.search-input > input {
+    border: none;
+    outline: none;
+    width: calc(100% - 16px);
+}
+.search-input > svg {
+    cursor: pointer;
+}
 
 /* 댓글이나 글에 표시되는 유저 프로필사진 */
 .small-profile-img {
@@ -377,6 +385,20 @@ body {
     display: none;
 }
 
+.gradient-btn-pink {
+    font-weight: 500;
+    background: linear-gradient(45deg, #ffe9ab, #ffb1b1);
+    color: #161616;
+    border: none;
+} 
+
+.gradient-btn-blue {
+    font-weight: 500;
+    background: linear-gradient(45deg, #affdcb, #56b8bd);
+    color: #161616;
+    border: none;
+} 
+
 @media screen and (max-width: 768px) {
 
     .white-btn,
@@ -403,5 +425,8 @@ body {
 @media screen and (max-width: 540px) {
     .small-text {
         font-size: 12px;
+    }
+    .new-post-btn > span {
+        display: none;
     }
 }

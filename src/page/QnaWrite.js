@@ -69,7 +69,7 @@ const QnaWrite = ({ mode }) => {
         <div className="write-form-container">
             <div className="write-form">
                 <div className="top">
-                    <Form.Select defaultValue={category || selectedQna?.category} onChange={(e) => setCategory(e.target.value)}>
+                    <Form.Select defaultValue={type === 'new' ? category : selectedQna?.category} onChange={(e) => setCategory(e.target.value)}>
                         <option value=''>카테고리</option>
                         <option value="tech">기술</option>
                         <option value="career">커리어</option>

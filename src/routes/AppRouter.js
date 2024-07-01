@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router";
 const Home = lazy(() => import('../page/Home'));
 const Login = lazy(() => import('../page/Login'));
 const Register = lazy(() => import('../page/Register'));
+const ForgetPassword = lazy(() => import('../page/ForgetPassword'));
 const PostAll = lazy(() => import('../page/PostAll'));
 const PostDetail = lazy(() => import('../page/PostDetail'));
 const PostWrite = lazy(() => import('../page/PostWrite'));
@@ -21,8 +22,6 @@ const AdminQna = lazy(() => import('../page/AdminQna'));
 const AdminMeetUp = lazy(() => import('../page/AdminMeetUp'));
 const AdminReport = lazy(() => import('../page/AdminReport'));
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
-const ChatList = lazy(() => import('../page/ChatList'));
-const ChatRoom = lazy(() => import('../page/ChatRoom'));
 
 
 const AppRouter = () => {
@@ -32,6 +31,7 @@ const AppRouter = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/me/:nickName" element={<MyPage />} />
         <Route element={<PrivateRoute permissionLevel="user" />}>
           <Route path="/post" element={<PostAll />} />
@@ -44,8 +44,6 @@ const AppRouter = () => {
           <Route path="/meetup/:id" element={<MeetUpDetail />} />
           <Route path="/meetup/write" element={<MeetUpWrite />} />
           <Route path="/account" element={<AccountPage />} />
-          <Route path="/chat" element={<ChatList />} />
-          <Route path="/chat/:roomId" element={<ChatRoom />} />
         </Route>
         <Route element={<PrivateRoute permissionLevel="admin" />}>
           <Route path="/admin" element={<Admin />} />

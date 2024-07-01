@@ -12,11 +12,10 @@
 }
 
 .qna-detail-q-container>.title {
-    color: #28A745;
-    font-size: 1.8rem;
+    width: 100%;
+    padding-bottom: 20px;
     font-size: 30px;
     font-weight: 500;
-    padding: 20px 0;
     border-bottom: 1px solid #eee;
 }
 
@@ -50,11 +49,6 @@
 
 .qna-detail-container>.answer {
     box-sizing: border-box;
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    padding: 20px;
-    margin: 10px;
-    background-color: transparent; */
     padding: 20px;
     margin: 10px;
     border-bottom: 1px solid #eee;
@@ -63,4 +57,16 @@
 .question-num {
     margin-top: 10px;
     margin-left: 25px;
+}
+
+@media screen and (max-width: 768px) {
+    .qna-detail-q-container > .title { font-size: 26px; text-align: center; }
+    .detail-page-user-container > .author { padding: 14px 0; }
+    .qna-detail-container > .answer { padding: 0px 10px; margin: 10px 0px; }
+}
+
+@media screen and (max-width: 540px) {
+    .qna-detail-q-container { margin: 10px 4px; padding: 20px 14px; }
+    .qna-detail-q-container > .title { font-size: 22px; text-align: center; }
+    .detail-page-user-container > .author { padding: 10px 0; }
 }

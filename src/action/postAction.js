@@ -1,6 +1,7 @@
 import api from "../utils/api";
 import * as types from "../constants/post.constants";
 import { commonUiActions } from "./commonUiAction";
+import { userActions } from "./userAction";
 
 const getPostList = (searchQuery) => async (dispatch) => {
     try {
@@ -200,6 +201,37 @@ const getAdminPostList = () => async (dispatch) => {
     }
 }
 
+const toggleScrapPrivate = (nickName, postId) => async (dispatch) => {
+    try {
+        dispatch({type: types.TOGGLE_SCRAP_PRIVATE_REQUEST})
+        const res = await api.put('/post/scrap/private', { postId });
+        if(res.status !== 200) {
+            throw new Error('비공개 전환에 실패하였습니다.')
+        } else {
+            dispatch({type: types.TOGGLE_SCRAP_PRIVATE_SUCCESS});
+            dispatch(userActions.getUserByNickName(nickName))
+            dispatch(commonUiActions.showToastMessage(res.message, "success"))
+        }
+    } catch (error) {
+        dispatch({type: types.TOGGLE_SCRAP_PRIVATE_FAIL, payload: error.message})
+    }
+}
+
+const deleteScrap = (nickName, postId) => async (dispatch) => {
+    try {
+        dispatch({type: types.DELETE_SCRAP_REQUEST})
+        const res = await api.put('/post/scrap/delete', { postId });
+        if(res.status !== 200) {
+            throw new Error('스크랩 삭제에 실패하였습니다.')
+        } else {
+            dispatch({type: types.DELETE_SCRAP_SUCCESS});
+            dispatch(userActions.getUserByNickName(nickName))
+            dispatch(commonUiActions.showToastMessage(res.message, "success"))
+        }
+    } catch (error) {
+        dispatch({type: types.DELETE_SCRAP_FAIL, payload: error.message})
+    }
+}
 
 export const postActions = {
   getPostList,
@@ -213,5 +245,7 @@ export const postActions = {
   toggleLike,
   addScrap,
   blockPost,
-  getAdminPostList
+  getAdminPostList,
+  toggleScrapPrivate,
+  deleteScrap,
 };
