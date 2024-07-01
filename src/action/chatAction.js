@@ -61,6 +61,7 @@ const getChatRoom = (roomId) => async (dispatch) => {
 };
 
 const saveChatMessage = (roomId, userName, message) => async (dispatch) => {
+    console.log(roomId, userName, message)
     try {
         dispatch({ type: types.CHAT_SAVE_REQUEST });
         const res = await api.post(`/chat/${roomId}`, { userName, message });

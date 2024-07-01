@@ -88,7 +88,7 @@ const ChatBtn = () => {
         console.log(roomId)
 
         // 방에서 메시지 수신
-        socket.emit("chat message", (userName, message) => {
+        socket.on("chat message", (userName, message) => {
             setMessages((prevMessages) => [
                 ...prevMessages,
                 { userName, message },
