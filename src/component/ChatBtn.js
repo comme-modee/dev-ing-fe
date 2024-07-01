@@ -65,6 +65,7 @@ const ChatBtn = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (value.trim()) {
+            console.log('입력한 채팅내용', value)
             socket.emit("chat message", {
                 userName: user.userName,
                 userProfileImage: user.profileImage,
