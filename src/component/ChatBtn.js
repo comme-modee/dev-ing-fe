@@ -85,8 +85,10 @@ const ChatBtn = () => {
         // 특정 방에 입장
         socket.emit("join room", roomId);
 
+        console.log(roomId)
+
         // 방에서 메시지 수신
-        socket.on("chat message", (userName, message) => {
+        socket.emit("chat message", (userName, message) => {
             setMessages((prevMessages) => [
                 ...prevMessages,
                 { userName, message },
@@ -97,6 +99,7 @@ const ChatBtn = () => {
         // 클린업 함수
         return () => {
             socket.off("chat message");
+            setMessages([]);
         };
     }, [roomId]);
 
