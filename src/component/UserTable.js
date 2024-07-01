@@ -10,8 +10,8 @@ const UserTable = ({ header, userList, isMobile }) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [isShowDetailInfo, setIsShowDetailInfo] = useState(false);
-    const [detailInfo, setDetailInfo] = useState([]);
+    const [ isShowDetailInfo, setIsShowDetailInfo ] = useState(false);
+    const [ detailInfo, setDetailInfo ] = useState([]);
 
     const showDetailInfo = (user) => {
         if (detailInfo._id === user._id) {
@@ -22,11 +22,11 @@ const UserTable = ({ header, userList, isMobile }) => {
         setDetailInfo(user);
         setIsShowDetailInfo(true);
     }
-
+    
     const toggleBlock = (id) => {
         dispatch(userActions.blockUser(id))
     }
-
+    
     return (
         <div className="overflow-x">
             <Table className="table-container user-table" bordered>

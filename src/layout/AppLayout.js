@@ -21,6 +21,7 @@ const AppLayout = ({ children }) => {
 
   return (
     <div>
+      <ChatBtn/>
       <ToastMessage />
       { !location.pathname.includes("/me/") && location.pathname.includes("admin") ? (
         <div className="admin-page">

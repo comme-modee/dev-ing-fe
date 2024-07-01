@@ -46,7 +46,7 @@ const Map = ({ location }) => {
     }, [location]);
 
     return (
-        <div id="map" style={{ maxWidth: "1000px", height: "300px" }}></div>
+        <div id="map" style={{ width: '100%', maxWidth: "1000px", height: "300px" }}></div>
     );
 };
 
