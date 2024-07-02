@@ -112,13 +112,18 @@
     position: absolute;
     top: 10px;
     left: 15px;
-    background-color: white;
     border-radius: 20px;
-    color: #333333;
+    color: #fff;
     padding: 5px 10px 5px 10px;
     font-size: 0.8rem;
+    font-weight: 500;
     z-index: 2;
 }
+
+.home-meet-up-card>.img>.green { background-color: rgb(0, 107, 32); }
+.home-meet-up-card>.img>.violet { background-color: rgb(97, 44, 139); }
+.home-meet-up-card>.img>.blue { background-color: rgb(23, 15, 131); }
+.home-meet-up-card>.img>.red { background-color: rgb(255, 87, 27); }
 
 .home-meet-up-card>.contents {
     display: flex;

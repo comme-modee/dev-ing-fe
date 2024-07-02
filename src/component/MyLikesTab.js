@@ -5,6 +5,7 @@ import { Col, Row, Card, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
+import ErrorCard from './ErrorCard';
 
 const MyLikesTab = ({uniqueUserLikes}) => {
     const navigate = useNavigate();
@@ -43,7 +44,7 @@ const MyLikesTab = ({uniqueUserLikes}) => {
                 </Card.Footer>
             </Card>
           </Col>
-      )) : "아직 좋아요한 포스트가 없습니다."}
+      )) :<ErrorCard errorMessage={"좋아요한 포스트가 없습니다"}/>}
     </Row>
   )
 }

@@ -205,17 +205,17 @@ const MeetUpWrite = () => {
         type === "new" ?
           (
             <>
-              <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)} dialogClassName='modal-dialog-centered' size='sm'>
+              <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)} dialogClassName='modal-dialog-centered' size='md'>
                 <Modal.Header closeButton>
                   <h5 className="modal-title">등록하시겠습니까?</h5>
                 </Modal.Header>
                 <Modal.Body>
-                  <div>모임 이름 : {formData?.title}</div>
-                  <div>내용 : {formData?.description}</div>
-                  <div>카테고리 : {formData?.category}</div>
-                  <div>날짜 : {formData?.date && format(formData?.date, "yyyy/MM/dd HH:mm")}</div>
-                  <div>위치 : {formData?.location === "online" ? (<span>온라인</span>) : (<span>{formData?.location}</span>)}</div>
-                  <div>참가인원 : {formData?.maxParticipants}</div>
+                  <div className='mb-1'><strong>모임 이름 :</strong> {formData?.title}</div>
+                  <div className='mb-1'><strong>내용 :</strong> {formData?.description}</div>
+                  <div className='mb-1'><strong>카테고리 :</strong> {formData?.category}</div>
+                  <div className='mb-1'><strong>날짜 :</strong> {formData?.date && format(formData?.date, "yyyy/MM/dd HH:mm")}</div>
+                  <div className='mb-1'><strong>위치 :</strong> {formData?.location === "online" ? (<span>온라인</span>) : (<span>{formData?.location}</span>)}</div>
+                  <div className='mb-1'><strong>참가인원 :</strong> {formData?.maxParticipants}</div>
                   <div style={{ color: "red" }}>모임 생성 후, 참여 인원이 없을 경우에만 삭제가 가능합니다.</div>
                 </Modal.Body>
                 <Modal.Footer>

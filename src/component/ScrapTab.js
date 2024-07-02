@@ -7,6 +7,7 @@ import { Col, Row, Card, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
+import ErrorCard from './ErrorCard';
 
 const ScrapTab = ({ uniqueUser, uniqueUserScrap }) => {
     const dispatch = useDispatch();
@@ -95,7 +96,7 @@ const ScrapTab = ({ uniqueUser, uniqueUserScrap }) => {
                     </Card.Footer>
                 </Card>
           </Col>
-      )) : "아직 스크랩된 포스트가 없습니다."}
+      )) : <ErrorCard errorMessage={"스크랩한 포스트가 없습니다"}/>}
     </Row>
   )
 }

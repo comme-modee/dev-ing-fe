@@ -19,7 +19,12 @@ const MeetUpCard = ({ meetUp }) => {
             <div className='img'>
                 <img src={meetUp.image} alt='' loading="lazy" />
                 <div className={'overlay' + (meetUp?.isClosed ? '-finish' : '')}>{meetUp?.isClosed ? "마감" : "모집중"}</div>
-                <div className={'category-overlay'}>{meetUp?.category}</div>
+                <div 
+                    className={`category-overlay ${meetUp?.category === '독서' ? 'green' : 
+                                                    meetUp?.category === '프로젝트' ? 'violet' : 
+                                                    meetUp?.category === '강의' ? 'blue' :'red'}`}>
+                    {meetUp?.category}
+                </div>
             </div>
             <div className='contents'>
                 <div className='title'>{meetUp.title}</div>

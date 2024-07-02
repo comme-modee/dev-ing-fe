@@ -140,16 +140,12 @@ const MeetUp = () => {
         </label>
       </div>
 
-      <div className='meet-up-container'>
-        {
-          meetUpList.length === 0 ?
-            (<ErrorCard errorMessage={"현재 모집 중인 모임이 없습니다."} />)
-            :
-            (meetUpList &&
-              meetUpList.map((meetUp) => <MeetUpCard key={meetUp._id} meetUp={meetUp} />)
-            )
-        }
-      </div>
+      {meetUpList.length > 0 ?
+        <div className='meet-up-container'>
+              {meetUpList?.map((meetUp) => <MeetUpCard key={meetUp._id} meetUp={meetUp} />)}
+        </div> :
+        <ErrorCard errorMessage={"현재 모집 중인 모임이 없습니다."} />
+      }
     </div>
   )
 }

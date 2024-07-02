@@ -101,6 +101,8 @@ const ChatBtn = () => {
             dispatch(chatActions.saveChatMessage(roomId, userName, message));
         });
 
+        console.log(socket)
+
         // 클린업 함수
         return () => {
             socket.off("chat message");

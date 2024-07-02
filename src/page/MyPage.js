@@ -5,7 +5,6 @@ import "../style/myPage.style.css"
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { userActions } from '../action/userAction';
-import ClipLoader from 'react-spinners/ClipLoader';
 import MeetUpTab from '../component/MeetUpTab';
 import QnaTab from '../component/QnaTab';
 import ScrapTab from '../component/ScrapTab';
@@ -19,6 +18,7 @@ import  platinum  from "../asset/img/platinum.png"
 import  diamond  from "../asset/img/diamond.png"
 import  master  from "../asset/img/master.png"
 import  challenger  from "../asset/img/challenger.png"
+import  ErrorCard  from "../component/ErrorCard"
 
 const MyPage = () => {
   const dispatch = useDispatch();
@@ -163,6 +163,7 @@ const MyPage = () => {
                 </button>
               )}
             </h2>
+            <p className="description">{uniqueUser.description}</p>
             <div className="stacks-container">
               {uniqueUser.stacks && uniqueUser.stacks.map(
                 (stack) => {
@@ -200,7 +201,6 @@ const MyPage = () => {
             </div>
           </div>
         </div>
-        <p className="description">{uniqueUser.description}</p>
       </div>
 
       <Nav variant="tabs" activeKey={tab} onSelect={(selectedKey) => setTab(selectedKey)} defaultActiveKey="post" className="custom-nav">
@@ -307,7 +307,7 @@ const TabContent = ({
         <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
           <PostTab post={post} key={post._id} />
         </Col>
-      )) : "아직 포스트를 게시하지 않았습니다"}
+      )) : <ErrorCard errorMessage={"등록한 포스트가 없습니다"}/>}
     </Row>
   }
 
@@ -315,7 +315,7 @@ const TabContent = ({
     return <div className="meetUp-container">
       {uniqueUserMeetUp.length !== 0 ? uniqueUserMeetUp.map((meetUp) => (
         <MeetUpTab meetUp={meetUp} key={meetUp._id} />
-      )) : "아직 MeetUp을 만들지 않았습니다"}
+      )) : <ErrorCard errorMessage={"등록한 모임이 없습니다"}/>}
     </div>
   }
 
@@ -323,7 +323,7 @@ const TabContent = ({
     return <>
       {uniqueUserQna.length !== 0 ? uniqueUserQna.map((qna) => (
         <QnaTab qna={qna} key={qna._id} />
-      )) : "아직 Qna를 게시하지 않았습니다"}
+      )) : <ErrorCard errorMessage={"등록한 질문이 없습니다"}/>}
     </>
   }
   if (tab === "scrap") {
@@ -333,11 +333,18 @@ const TabContent = ({
     return <MyLikesTab uniqueUserLikes={uniqueUserLikes} />
   }
   if (tab === "myComments") {
-    return <MyCommentsTab
-      uniqueUser={uniqueUser}
-      uniqueUserPostComments={uniqueUserPostComments}
-      uniqueUserQnaComments={uniqueUserQnaComments}
-    />
+    return (
+      <>
+        {uniqueUserPostComments.length === 0 && uniqueUserQnaComments.length === 0 ? 
+            <ErrorCard errorMessage={"등록한 댓글이 없습니다"}/> :
+            <MyCommentsTab
+              uniqueUser={uniqueUser}
+              uniqueUserPostComments={uniqueUserPostComments}
+              uniqueUserQnaComments={uniqueUserQnaComments}
+            />
+        }
+      </>
+    )
   }
 
 }

@@ -17,6 +17,7 @@ const PostAll = () => {
   const navigate = useNavigate();
   const [ query, setQuery ] = useSearchParams();
   const [ keywordValue, setKeywordValue ] = useState('');
+  const [ tagValue, setTagValue ] = useState(query.get('tag') || '');
   const { postList, error } = useSelector((state) => state.post);
   const { isFollowing } = useSelector((state) => state.post);
   const [ isFollowingState, setIsFollowingState ] = useState(isFollowing);
@@ -39,6 +40,15 @@ const PostAll = () => {
     navigate(`/post?${queryParams.toString()}`);
   };
 
+  useEffect(()=>{
+    if(query.size === 0) {
+      setTagValue('')
+      setKeywordValue('')
+      setSearchQuery({ ...searchQuery, tag: '', keyword: '', type: '' })
+      dispatch(postActions.getPostList({ ...searchQuery }));
+    }
+  },[query])
+
   useEffect(() => {
     dispatch(postActions.getPostList({ ...searchQuery }));
     updateQueryParams();
@@ -49,7 +59,7 @@ const PostAll = () => {
     setSearchQuery({ ...searchQuery, isFollowing: isFollowingState })
   },[isFollowingState])
 
-  const onCheckEnter = (e) => {
+  const searchKeywordByEnter = (e) => {
     if (e.key === "Enter") {
       setSearchQuery(prevState => ({
         ...prevState,
@@ -67,6 +77,24 @@ const PostAll = () => {
     updateQueryParams();
   }
 
+  const searchTagByEnter = (e) => {
+    if (e.key === "Enter") {
+      setSearchQuery(prevState => ({
+        ...prevState,
+        tag: e.target.value || ''
+      }));
+      updateQueryParams();
+    }
+  };
+
+  const searchTagBySearchIcon = () => {
+    setSearchQuery(prevState => ({
+      ...prevState,
+      tag: tagValue || ''
+    }));
+    updateQueryParams();
+  }
+
   const getPostListByType = (type) => {
     setSearchQuery(prevState => ({
       ...prevState,
@@ -78,31 +106,45 @@ const PostAll = () => {
   return (
     <div className='post-all-container'> 
 
-      <div className='contents-header-btns'>
-        <div className='form-control search-input'>
-          <input 
-            type='text' 
-            placeholder='검색어를 입력하세요' 
-            value={keywordValue}
-            onKeyUp={(e) => onCheckEnter(e)}
-            onChange={(e) => setKeywordValue(e.target.value)}
-          />
-          <FontAwesomeIcon icon={faSearch} onClick={() => searchKeywordBySearchIcon()}/>
+      <div className='contents-header-btns post-header-btns'>
+        <div>
+          <div className='form-control search-input'>
+            <input 
+              type='text' 
+              placeholder='태그를 입력하세요' 
+              value={tagValue}
+              onKeyUp={(e) => searchTagByEnter(e)}
+              onChange={(e) => setTagValue(e.target.value)}
+            />
+            <FontAwesomeIcon icon={faSearch} onClick={() => searchTagBySearchIcon()}/>
+          </div>
+          <div className='form-control search-input'>
+            <input 
+              type='text' 
+              placeholder='검색어를 입력하세요' 
+              value={keywordValue}
+              onKeyUp={(e) => searchKeywordByEnter(e)}
+              onChange={(e) => setKeywordValue(e.target.value)}
+            />
+            <FontAwesomeIcon icon={faSearch} onClick={() => searchKeywordBySearchIcon()}/>
+          </div>
         </div>
         
-        <Dropdown>
-          <Dropdown.Toggle className='gradient-btn-blue'>
-            정렬
-          </Dropdown.Toggle>
+        <div>
+          <Dropdown>
+            <Dropdown.Toggle className='gradient-btn-blue'>
+              정렬
+            </Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={() => getPostListByType('popularity')}>좋아요 순</Dropdown.Item>
-            <Dropdown.Item onClick={() => getPostListByType('comments')}>댓글 순</Dropdown.Item>
-            <Dropdown.Item onClick={() => getPostListByType('scrap')}>스크랩 순</Dropdown.Item>
-            <Dropdown.Item onClick={() => getPostListByType('latest')}>최신 순</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        <WriteBtn type='post'/>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => getPostListByType('popularity')}>좋아요 순</Dropdown.Item>
+              <Dropdown.Item onClick={() => getPostListByType('comments')}>댓글 순</Dropdown.Item>
+              <Dropdown.Item onClick={() => getPostListByType('scrap')}>스크랩 순</Dropdown.Item>
+              <Dropdown.Item onClick={() => getPostListByType('latest')}>최신 순</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <WriteBtn type='post'/>
+        </div>
       </div>
 
       <div className='following-toggle display-center-center'>
