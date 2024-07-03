@@ -7,8 +7,7 @@ import img from '../asset/img/meeting-img-01.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import { faChevronLeft, faClose } from "@fortawesome/free-solid-svg-icons";
-import { io } from 'socket.io-client'
-let socket;
+import socket from '../server.js';
 
 const ChatBtn = () => {
     const dispatch = useDispatch();
@@ -87,7 +86,6 @@ const ChatBtn = () => {
     },[socket])
 
     useEffect(() => {
-        socket = io('https://port-0-dev-ing-server-1272llwyghb5h.sel5.cloudtype.app');
 
         // 특정 방에 입장
         socket.emit("join room", roomId);
