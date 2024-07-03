@@ -5,7 +5,7 @@ const LOCAL_BACKEND = process.env.REACT_APP_LOCAL_BACKEND;
 const BACKEND_PROXY = process.env.REACT_APP_BACKEND_PROXY;
 
 const api = axios.create({
-  baseURL: `${LOCAL_BACKEND}/api`,
+  baseURL: `https://port-0-dev-ing-server-1272llwyghb5h.sel5.cloudtype.app/api`,
 //   baseURL: `${BACKEND_PROXY}/api`,
   headers: {
     "Content-Type": "application/json",
