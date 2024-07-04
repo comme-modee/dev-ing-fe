@@ -7,7 +7,8 @@ import img from '../asset/img/meeting-img-01.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import { faChevronLeft, faClose } from "@fortawesome/free-solid-svg-icons";
-import socket from '../server.js';
+import { io } from "socket.io-client";
+const socket = io('http://localhost:5000');
 
 const ChatBtn = () => {
     const dispatch = useDispatch();
@@ -98,7 +99,7 @@ const ChatBtn = () => {
                 ...prevMessages,
                 { userName, message },
             ]);
-            dispatch(chatActions.saveChatMessage(roomId, userName, message));
+            // dispatch(chatActions.saveChatMessage(roomId, userName, message));
         });
 
         console.log(socket)
