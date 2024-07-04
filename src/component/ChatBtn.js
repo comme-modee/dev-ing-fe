@@ -9,11 +9,7 @@ import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import { faChevronLeft, faClose } from "@fortawesome/free-solid-svg-icons";
 import { io } from "socket.io-client";
 const REACT_APP_BACKEND = process.env.REACT_APP_BACKEND;
-const socket = io(REACT_APP_BACKEND, {
-    path: '/socket.io',
-    transports: ['websocket'],
-    withCredentials: true
-});
+const socket = io(REACT_APP_BACKEND);
 
 const ChatBtn = () => {
     const dispatch = useDispatch();
